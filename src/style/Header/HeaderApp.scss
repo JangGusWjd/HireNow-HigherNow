@@ -1,14 +1,16 @@
 header {
-  width: 100%;
+  // width: 100%;
   height: 9rem;
-  background-color: #1c1b1a;
+  background-color: #ffffff;
+  border-bottom: 1px solid #c6c6c6;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .header-top {
-    width: 100%;
-    max-width: 1024px;
+    width: 1316px;
+    // width: 100%;
+    max-width: 1316px;
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
@@ -19,16 +21,16 @@ header {
 
       h1 {
         margin: 0;
-        color: #ff7710;
+        color: #228b22;
       }
 
       input {
         width: 27rem;
         height: 3rem;
         border-radius: 25px;
-        border: 1.5px solid #ff7710;
+        border: 1.5px solid #228b22;
         background: none;
-        color: #ffffff;
+        color: #1c1b1a;
         padding-left: 1rem;
       }
 
@@ -37,7 +39,7 @@ header {
       }
 
       input::placeholder {
-        color: #ff7710;
+        color: #228b22;
       }
     }
 
@@ -54,11 +56,13 @@ header {
   }
 
   .header-bottom {
-    width: 100%;
-    max-width: 1024px;
+    // width: 100%;
+    width: 1326px;
+    max-width: 1316px;
     display: flex;
     justify-content: space-between;
-    color: #ffffff;
+    color: #1c1b1a;
+    font-weight: 700;
     margin-top: 1rem;
 
     .menu-list,

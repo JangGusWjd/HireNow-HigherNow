@@ -7,7 +7,7 @@ const HeaderApp = () => {
       <header>
         <div className="header-top">
           <div className="header-logo">
-            <h1>LIONMON</h1>
+            <h1>HIRENOW</h1>
             <input type="text" placeholder="어떤 알바를 찾으세요?" />
           </div>
           <div className="header-login">
