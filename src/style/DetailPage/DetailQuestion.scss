@@ -1,0 +1,34 @@
+.question-container {
+  width: 100%;
+  height: 23rem;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .question-zip {
+    width: 100%;
+    height: 18rem;
+    border-radius: 0.3125rem;
+    background: #fbfbfb;
+    box-shadow: 4px 4px 2px 0px rgba(163, 163, 163, 0.25);
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      li {
+        margin-top: 2rem;
+        list-style: none;
+        display: flex;
+        align-items: center;
+
+        p {
+          margin-left: 1.5rem;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
