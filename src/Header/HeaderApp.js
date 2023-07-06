@@ -1,13 +1,28 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import "../style/Header/HeaderApp.scss";
+import styled from "styled-components";
 
 const HeaderApp = () => {
+  const Logo = styled(Link)`
+    text-decoration: none;
+  `;
+
+  const MenuLink = styled(Link)`
+    text-decoration: none;
+    color: #1c1b1a;
+
+    &:hover {
+      color: #228b22;
+    }
+  `;
   return (
     <div className="page-body">
       <header>
         <div className="header-top">
           <div className="header-logo">
-            <h1>HIRENOW</h1>
+            <Logo to="/">
+              <h1>HIRENOW</h1>
+            </Logo>
             <input type="text" placeholder="어떤 알바를 찾으세요?" />
           </div>
           <div className="header-login">
@@ -25,7 +40,9 @@ const HeaderApp = () => {
           </ul>
           <ul className="register-list">
             <li>이력서 등록</li>
-            <li>공고 등록</li>
+            <MenuLink to="/job-post">
+              <li>공고 등록</li>
+            </MenuLink>
           </ul>
         </div>
       </header>

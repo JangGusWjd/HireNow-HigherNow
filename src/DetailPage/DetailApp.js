@@ -1,6 +1,6 @@
 // 채용 공고 상세보기 페이지
-// import { useEffect, useState } from "react";
-// import axios from "axios";
+import { useEffect, useState } from "react";
+import axios from "axios";
 // import { useParams, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import DetailPosting from "./DetailPosting";
@@ -9,31 +9,31 @@ import DetailQuestion from "./DetailQuestion";
 import "../style/DetailPage/DetailApp.scss";
 
 const DetailApp = () => {
-  const { companyName } = useParams();
-  // const [jobPosting, setJobPosting] = useState({});
+  const { jobListId } = useParams();
+  const [jobPosting, setJobPosting] = useState({});
   // const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   fetchJobPostingData();
-  // }, []);
+  useEffect(() => {
+    fetchJobPostingData();
+  }, []);
 
-  // const fetchJobPostingData = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:8080/recruit/${companyName}`
-  //     );
-  //     setJobPosting(response.data);
-  //   } catch (error) {
-  //     console.error("해당 채용 공고를 불러오는데 실패했습니다.", error);
-  //   }
-  // };
+  const fetchJobPostingData = async () => {
+    try {
+      const response = await axios.get(
+        `http://49.247.33.67:8080/recruit/${jobListId}`
+      );
+      setJobPosting(response.data);
+    } catch (error) {
+      console.error("해당 채용 공고를 불러오는데 실패했습니다.", error);
+    }
+  };
 
   // const handleApply = () => {
   //   navigate(`/apply/${companyName}`);
   // };
   return (
     <div className="detail-page-container">
-      <DetailPosting companyName={companyName} />
+      <DetailPosting companyName={jobPosting.companyInfo} />
       <DetailMap />
       <DetailQuestion />
       {/* <h3>회사 이름: {jobPosting.companyName}</h3>

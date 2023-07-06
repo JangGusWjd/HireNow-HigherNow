@@ -4,41 +4,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// const jobData = [
-//   {
-//     id: 1,
-//     companyName: "쿠팡",
-//     jobTitle: "공고 제목1",
-//     logoImage:
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgZOKF-YHVHafbP3gfaCVRUP4HkwnS6IccH2P20IPu&s",
-//   },
-//   {
-//     id: 2,
-//     companyName: "카카오톡",
-//     jobTitle: "공고 제목 2",
-//     logoImage:
-//       "https://play-lh.googleusercontent.com/Ob9Ys8yKMeyKzZvl3cB9JNSTui1lJwjSKD60IVYnlvU2DsahysGENJE-txiRIW9_72Vd",
-//   },
-//   {
-//     id: 3,
-//     companyName: "배달의 민족",
-//     jobTitle: "공고 제목 3",
-//     logoImage: "https://woowahan-cdn.woowahan.com/static/image/share_kor.jpg",
-//   },
-//   {
-//     id: 4,
-//     companyName: "네이버",
-//     jobTitle: "공고 제목 3",
-//     logoImage: "https://www.navercorp.com/img/ko/og/logo.png",
-//   },
-//   {
-//     id: 5,
-//     companyName: "네이버",
-//     jobTitle: "공고 제목 3",
-//     logoImage: "https://www.navercorp.com/img/ko/og/logo.png",
-//   },
-// ];
-
 const AlbaZip = () => {
   const AlbaContainer = styled.div`
     max-width: 1316px;
@@ -52,6 +17,7 @@ const AlbaZip = () => {
   `;
 
   const [jobPostings, setJobPostings] = useState([]);
+  // const [jobLogos, setJobLogos] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     fetchJobPostings();
@@ -61,14 +27,35 @@ const AlbaZip = () => {
     try {
       const response = await axios.get("http://49.247.33.67:8080/recruit");
       setJobPostings(response.data);
+      fetchJobLogo(response.data);
     } catch (error) {
       console.error("채용 공고를 가져오는데 실패했습니다.", error);
     }
   };
 
-  const handleJobPostingClick = (companyName) => {
+  const handleJobPostingClick = (jobListId) => {
     // 채용 공고 상세보기로 이동
-    navigate(`/detail/${companyName}`);
+    navigate(`/detail/${jobListId}`);
+  };
+
+  const fetchJobLogo = async (jobPostings) => {
+    try {
+      const logoPromises = jobPostings.map(async (job) => {
+        const response = await axios.get(
+          `http://49.247.33.67:8080/logo/${job.jobListId}`,
+          {
+            responseType: "blob",
+          }
+        );
+        const logoBlob = response.data;
+        const imageUrl = URL.createObjectURL(logoBlob);
+        return { ...job, logoUrl: imageUrl }; // 로고 이미지 URL을 채용 공고 객체에 추가
+      });
+      const jobPostingsWithLogo = await Promise.all(logoPromises);
+      setJobPostings(jobPostingsWithLogo);
+    } catch (error) {
+      console.error("로고 이미지를 가져오는 중 오류가 발생했습니다:", error);
+    }
   };
 
   return (
@@ -79,9 +66,14 @@ const AlbaZip = () => {
           <div
             key={jobPosting.jobListId}
             className="alba-list"
-            onClick={() => handleJobPostingClick(jobPosting.companyName)}
+            onClick={() => handleJobPostingClick(jobPosting.jobListId)}
           >
             <h3>{jobPosting.companyName}</h3>
+            {jobPosting.logoUrl ? (
+              <img src={jobPosting.logoUrl} alt="logo" />
+            ) : (
+              <p>로고 이미지를 불러오는 중입니다...</p>
+            )}
             {/* <p>{jobPosting.companyInfo}</p> */}
           </div>
         ))}
