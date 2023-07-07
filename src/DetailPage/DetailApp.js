@@ -35,7 +35,7 @@ const DetailApp = () => {
     <div className="detail-page-container">
       <DetailPosting companyName={jobPosting.companyInfo} />
       <DetailMap />
-      <DetailQuestion />
+      <DetailQuestion props={jobPosting.jobListId} />
       {/* <h3>회사 이름: {jobPosting.companyName}</h3>
       <p>회사 정보: {jobPosting.companyInfo}</p>
       <p>질문 1: {jobPosting.question1}</p>

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
 import {
   TextField,
   Button,
   Grid,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
   Card,
   CardContent,
   Typography,
@@ -10,11 +15,18 @@ import {
 
 const JobPostApp = () => {
   const [formData, setFormData] = useState({
+    recruitTitle: "",
     companyName: "",
+    companyAddress: "",
+    // latitude: null,
+    // longitude: null,
     companyInfo: "",
+    employmentType: "",
+    wage: "",
     question1: "",
     question2: "",
     question3: "",
+    // deadline: null,
     password: "",
     confirmPassword: "",
     file: null,
@@ -30,7 +42,14 @@ const JobPostApp = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  // const handleDateChange = (date) => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     deadline: date,
+  //   }));
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -38,26 +57,47 @@ const JobPostApp = () => {
       return;
     }
 
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      if (key !== "confirmPassword") {
-        data.append(key, value);
-      }
-    });
+    try {
+      const geocodingAPIKey = "AIzaSyBRpARVc5rjCBiJHU8riyw8OqdAJY6UqZ8";
+      const { companyAddress } = formData;
 
-    fetch("http://49.247.33.67:8080/recruit", {
-      method: "POST",
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("전송 완료:", data);
-        alert("전송이 성공적으로 완료되었습니다.");
-      })
-      .catch((error) => {
-        console.error("오류 발생:", error);
-        alert("전송 중 오류가 발생했습니다.");
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+          companyAddress
+        )}&key=${geocodingAPIKey}`
+      );
+
+      const { lat, lng } = response.data.results[0].geometry.location;
+
+      const updatedFormData = {
+        ...formData,
+        latitude: lat,
+        longitude: lng,
+      };
+
+      const data = new FormData();
+      Object.entries(updatedFormData).forEach(([key, value]) => {
+        if (key !== "confirmPassword") {
+          data.append(key, value);
+        }
       });
+
+      fetch("http://49.247.33.67:8080/recruit", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("전송 완료:", data);
+          alert("전송이 성공적으로 완료되었습니다.");
+        })
+        .catch((error) => {
+          console.error("오류 발생:", error);
+          alert("전송 중 오류가 발생했습니다.");
+        });
+    } catch (error) {
+      console.error("주소를 변환하는데 실패했습니다.", error);
+    }
   };
 
   return (
@@ -71,6 +111,15 @@ const JobPostApp = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                label="채용 공고 제목을 입력해주세요"
+                name="recruitTitle"
+                value={formData.recruitTitle}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
                 label="회사명을 입력해주세요"
                 name="companyName"
                 value={formData.companyName}
@@ -80,9 +129,42 @@ const JobPostApp = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                label="회사 주소를 입력해주세요"
+                name="companyAddress"
+                value={formData.companyAddress}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
                 label="지원자에게 소개할 회사정보를 입력해주세요"
                 name="companyInfo"
                 value={formData.companyInfo}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="employmentType-label">고용 형태</InputLabel>
+                <Select
+                  labelId="employmentType-label"
+                  id="employmentType"
+                  name="employmentType"
+                  value={formData.employmentType}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="정규직">정규직</MenuItem>
+                  <MenuItem value="비정규직">비정규직</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="급여"
+                name="salary"
+                value={formData.wage}
                 onChange={handleChange}
               />
             </Grid>
