@@ -12,6 +12,8 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const JobPostApp = () => {
   const [formData, setFormData] = useState({
@@ -33,6 +35,8 @@ const JobPostApp = () => {
   });
 
   const [passwordError, setPasswordError] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState("");
 
   const handleChange = (e) => {
     if (e.target.name === "file") {
@@ -42,12 +46,32 @@ const JobPostApp = () => {
     }
   };
 
-  // const handleDateChange = (date) => {
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     deadline: date,
-  //   }));
-  // };
+  const handleTimeChange = (e) => {
+    setSelectedTime(e.target.value);
+  };
+
+  const renderTimeOptions = () => {
+    const options = [];
+
+    for (let hour = 0; hour <= 23; hour++) {
+      const formatHour = hour.toString().padStart(2, "0");
+      const timeLabel = `${formatHour}:00`;
+      options.push(
+        <option key={formatHour} value={formatHour}>
+          {timeLabel}
+        </option>
+      );
+    }
+    return options;
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      deadline: `${date} ${selectedTime}:00`,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -163,7 +187,7 @@ const JobPostApp = () => {
               <TextField
                 fullWidth
                 label="급여"
-                name="salary"
+                name="wage"
                 value={formData.wage}
                 onChange={handleChange}
               />
@@ -200,6 +224,14 @@ const JobPostApp = () => {
                 value={formData.question3}
                 onChange={handleChange}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <p>마감 시간: </p>
+              <DatePicker selected={selectedDate} onChange={handleDateChange} />
+              <select value={selectedTime} onChange={handleTimeChange}>
+                <option value="">시간 선택</option>
+                {renderTimeOptions()}
+              </select>
             </Grid>
             <Grid item xs={12}>
               <TextField
