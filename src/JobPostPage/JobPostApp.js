@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   TextField,
@@ -28,14 +28,16 @@ const JobPostApp = () => {
     question1: "",
     question2: "",
     question3: "",
-    // deadline: null,
+    deadline: "",
     password: "",
     confirmPassword: "",
     file: null,
   });
 
+  // useEffect(() => {}, [formData]);
+
   const [passwordError, setPasswordError] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
 
   const handleChange = (e) => {
@@ -44,10 +46,6 @@ const JobPostApp = () => {
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
-  };
-
-  const handleTimeChange = (e) => {
-    setSelectedTime(e.target.value);
   };
 
   const renderTimeOptions = () => {
@@ -65,13 +63,63 @@ const JobPostApp = () => {
     return options;
   };
 
+  // const handleTimeChange = (e) => {
+  //   const newSelectedTime = e.target.value;
+  //   setSelectedTime(newSelectedTime);
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     deadline: `${selectedDate} ${newSelectedTime}:00:00`,
+  //   }));
+  // };
+
+  // const handleDateChange = (date) => {
+  //   setSelectedDate(date);
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     deadline: `${date} ${selectedTime}:00:00`,
+  //   }));
+  // };
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      deadline: `${date} ${selectedTime}:00`,
-    }));
+    updateDeadline(date, selectedTime);
   };
+
+  const handleTimeChange = (e) => {
+    const time = e.target.value;
+    setSelectedTime(time);
+    updateDeadline(selectedDate, time);
+  };
+
+  const updateDeadline = (date, time) => {
+    if (date && time) {
+      const formattedDate = date.toISOString().split("T")[0];
+      const deadline = `${formattedDate} ${time}:00:00`;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        deadline: deadline,
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        deadline: "",
+      }));
+    }
+  };
+
+  // const handleClock = () => {
+  //   console.log(formData);
+  // };
+
+  // const handleClock = () => {
+  //   const deadline = `${
+  //     selectedDate.toISOString().split("T")[0]
+  //   } ${selectedTime}:00:00`;
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     deadline: deadline,
+  //   }));
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -232,6 +280,7 @@ const JobPostApp = () => {
                 <option value="">시간 선택</option>
                 {renderTimeOptions()}
               </select>
+              {/* <button onClick={handleClock}>마감 시간 선택</button> */}
             </Grid>
             <Grid item xs={12}>
               <TextField
