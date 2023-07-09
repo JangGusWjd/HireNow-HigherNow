@@ -1,8 +1,7 @@
 // 채용 공고 상세보기 페이지
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import { useParams, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import DetailPosting from "./DetailPosting";
 import DetailMap from "./DetailMap";
 import DetailQuestion from "./DetailQuestion";
@@ -11,7 +10,7 @@ import "../style/DetailPage/DetailApp.scss";
 const DetailApp = () => {
   const { jobListId } = useParams();
   const [jobPosting, setJobPosting] = useState({});
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchJobPostingData();
@@ -28,14 +27,15 @@ const DetailApp = () => {
     }
   };
 
-  // const handleApply = () => {
-  //   navigate(`/apply/${companyName}`);
-  // };
+  const handleApply = () => {
+    navigate(`/apply/${jobListId}`);
+  };
   return (
     <div className="detail-page-container">
       <DetailPosting companyName={jobPosting.companyInfo} />
       <DetailMap />
       <DetailQuestion props={jobPosting.jobListId} />
+      <button onClick={handleApply}>지원하기</button>
       {/* <h3>회사 이름: {jobPosting.companyName}</h3>
       <p>회사 정보: {jobPosting.companyInfo}</p>
       <p>질문 1: {jobPosting.question1}</p>

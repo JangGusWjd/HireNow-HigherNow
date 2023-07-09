@@ -12,7 +12,7 @@ function App() {
         <Route element={<HeaderApp />}>
           <Route path="/" element={<MainApp />} />
           <Route path="/detail/:jobListId" element={<DetailApp />} />
-          <Route path="/apply/:companyName" element={<ApplyApp />} />
+          <Route path="/apply/:jobListId" element={<ApplyApp />} />
           <Route path="/job-post" element={<JobPostApp />} />
         </Route>
       </Routes>

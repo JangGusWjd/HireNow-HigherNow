@@ -1,4 +1,5 @@
 // 채용 회사의 위치 지도 표시하기
+import "../style/DetailPage/DetailMap.scss";
 import { useEffect } from "react";
 
 const { kakao } = window;
@@ -18,7 +19,7 @@ const DetailMap = () => {
     });
   });
   return (
-    <div>
+    <div className="map-container">
       <h2>근무 지역</h2>
       <div id="map" style={{ width: "1000px", height: "300px" }}></div>
     </div>
