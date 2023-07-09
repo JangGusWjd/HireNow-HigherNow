@@ -32,8 +32,18 @@ const DetailApp = () => {
   };
   return (
     <div className="detail-page-container">
-      <DetailPosting companyName={jobPosting.companyInfo} />
-      <DetailMap />
+      <DetailPosting
+        companyName={jobPosting.companyName}
+        recruitTitle={jobPosting.recruitTitle}
+        companyInfo={jobPosting.companyInfo}
+        employmentType={jobPosting.employmentType}
+        wage={jobPosting.wage}
+        companyAddress={jobPosting.companyAddress}
+      />
+      <DetailMap
+        latitude={jobPosting.latitude}
+        longitude={jobPosting.longitude}
+      />
       <DetailQuestion props={jobPosting.jobListId} />
       <button onClick={handleApply}>지원하기</button>
       {/* <h3>회사 이름: {jobPosting.companyName}</h3>

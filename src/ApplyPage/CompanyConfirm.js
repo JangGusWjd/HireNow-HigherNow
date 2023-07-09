@@ -11,7 +11,7 @@ const CompanyConfirm = () => {
     margin-bottom: -1rem;
   `;
   const { jobListId } = useParams();
-  // const [jobPosting, setJobPosting] = useState({});
+  const [jobPosting, setJobPosting] = useState({});
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const CompanyConfirm = () => {
       const response = await axios.get(
         `http://49.247.33.67:8080/recruit/${jobListId}`
       );
-      // setJobPosting(response.data);
+      setJobPosting(response.data);
       const { question1, question2, question3 } = response.data;
       setQuestions([question1, question2, question3]);
     } catch (error) {
@@ -34,16 +34,15 @@ const CompanyConfirm = () => {
   return (
     <div>
       <div className="CompanyConfirm-Container">
-        <ConfirmTitle>지원 회사 확인</ConfirmTitle>
-        <DetailPosting />
-        {/* <div>
-          <p>근무회사명</p>
-          <p></p>
-        </div>
-        <div>
-          <p>공고 제목</p>
-          <p>{jobPosting.companyInfo}</p>
-        </div> */}
+        <ConfirmTitle>지원 공고 확인</ConfirmTitle>
+        <DetailPosting
+          companyName={jobPosting.companyName}
+          recruitTitle={jobPosting.recruitTitle}
+          companyInfo={jobPosting.companyInfo}
+          employmentType={jobPosting.employmentType}
+          wage={jobPosting.wage}
+          companyAddress={jobPosting.companyAddress}
+        />
       </div>
       <Application questions={questions} />
     </div>

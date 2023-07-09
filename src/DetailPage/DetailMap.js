@@ -4,17 +4,18 @@ import { useEffect } from "react";
 
 const { kakao } = window;
 
-const DetailMap = () => {
+const DetailMap = (props) => {
+  const { latitude, longitude } = props;
   useEffect(() => {
     const container = document.getElementById("map");
     const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      center: new kakao.maps.LatLng(latitude, longitude),
       level: 3,
     };
     const map = new kakao.maps.Map(container, options);
 
     const marker = new kakao.maps.Marker({
-      position: new kakao.maps.LatLng(33.450701, 126.570667),
+      position: new kakao.maps.LatLng(latitude, longitude),
       map: map,
     });
   });

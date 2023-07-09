@@ -68,25 +68,23 @@ const AlbaZip = () => {
             className="alba-list"
             onClick={() => handleJobPostingClick(jobPosting.jobListId)}
           >
-            <h3>{jobPosting.companyName}</h3>
             {jobPosting.logoUrl ? (
               <img src={jobPosting.logoUrl} alt="logo" />
             ) : (
               <p>로고 이미지를 불러오는 중입니다...</p>
             )}
-            {/* <p>{jobPosting.companyInfo}</p> */}
+            <div className="company-info-top">
+              <p>{jobPosting.companyName}</p>
+              <h3>{jobPosting.recruitTitle}</h3>
+            </div>
+            <div className="company-info-bottom">
+              <p>{jobPosting.companyAddress}</p>
+              <p>{jobPosting.employmentType}</p>
+              <p>월 {jobPosting.wage}원</p>
+            </div>
           </div>
         ))}
       </div>
-      {/* <div className="alba-container">
-        {jobData.map((jobPosting) => (
-          <div key={jobPosting.id} className="alba-list">
-            <img src={jobPosting.logoImage} alt={jobPosting.companyName} />
-            <h2>{jobPosting.jobTitle}</h2>
-            <p>{jobPosting.companyName}</p>
-          </div>
-        ))}
-      </div> */}
     </AlbaContainer>
   );
 };

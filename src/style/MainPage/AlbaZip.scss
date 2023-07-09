@@ -15,16 +15,45 @@
     display: flex;
     flex-direction: column;
     // justify-content: center;
-    align-items: center;
+    // align-items: center;
     padding-top: 1rem;
 
     img {
-      width: 250px;
-      height: 100px;
+      width: 14rem;
+      height: 6rem;
+      border-radius: 0.3125rem;
+      margin: 0 auto;
     }
 
-    h2 {
-      margin: 0;
+    .company-info-top {
+      margin: 1rem 0 0 1rem;
+      p {
+        margin: 0 0 0.5rem 0;
+        color: #929090;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 800;
+      }
+    }
+
+    .company-info-bottom {
+      display: flex;
+      margin-left: 1rem;
+      p {
+        color: #929090;
+        font-weight: 600;
+        font-size: 0.8rem;
+        margin-right: 0.5rem;
+      }
+
+      :nth-child(2) {
+        color: #228b22;
+      }
     }
   }
 }
