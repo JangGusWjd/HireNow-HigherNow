@@ -39,7 +39,9 @@ const HeaderApp = () => {
             <li>고객센터</li>
           </ul>
           <ul className="register-list">
-            <li>이력서 등록</li>
+            <MenuLink to="/check">
+              <li>지원 현황</li>
+            </MenuLink>
             <MenuLink to="/job-post">
               <li>공고 등록</li>
             </MenuLink>
