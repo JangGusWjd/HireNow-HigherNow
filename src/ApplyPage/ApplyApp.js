@@ -1,8 +1,19 @@
+import CompanyConfirm from "./CompanyConfirm";
+import styled from "styled-components";
+
 const ApplyApp = () => {
+  const ApplyContainer = styled.div`
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    margin-top: 3rem;
+  `;
   return (
-    <div>
-      <h1>지원서 작성 페이지</h1>
-    </div>
+    <ApplyContainer>
+      <h1>지원서 작성</h1>
+      <hr />
+      <CompanyConfirm />
+    </ApplyContainer>
   );
 };
 
