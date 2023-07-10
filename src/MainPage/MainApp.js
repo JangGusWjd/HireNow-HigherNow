@@ -1,7 +1,12 @@
 import "../style/MainPage/MainApp.scss";
 import AlbaZip from "./AlbaZip";
+import { useNavigate } from "react-router-dom";
 
 const MainApp = () => {
+  const navigate = useNavigate();
+  const goPopularPage = () => {
+    navigate("/popular-alba");
+  };
   return (
     <div className="page-body">
       <div className="main-ad">
@@ -24,7 +29,7 @@ const MainApp = () => {
               />
             </svg>
           </div>
-          <div className="announcement-text">
+          <div className="announcement-text" onClick={goPopularPage}>
             <p>실시간 TOP100</p>
             <p>
               가장 <span>인기있는 공고</span>를 <br />

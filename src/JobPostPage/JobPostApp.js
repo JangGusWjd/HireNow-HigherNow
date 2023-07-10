@@ -165,7 +165,7 @@ const JobPostApp = () => {
         })
         .catch((error) => {
           console.error("오류 발생:", error);
-          alert("전송 중 오류가 발생했습니다.");
+          // alert("전송 중 오류가 발생했습니다.");
         });
     } catch (error) {
       console.error("주소를 변환하는데 실패했습니다.", error);

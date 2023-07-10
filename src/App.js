@@ -5,6 +5,7 @@ import DetailApp from "./DetailPage/DetailApp";
 import ApplyApp from "./ApplyPage/ApplyApp";
 import CheckApp from "./CheckPage/CheckApp";
 import JobPostApp from "./JobPostPage/JobPostApp";
+import PopularAlbaApp from "./PopularAlbaPage/PopularAlbaApp";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/apply/:jobListId" element={<ApplyApp />} />
           <Route path="/check" element={<CheckApp />} />
           <Route path="/job-post" element={<JobPostApp />} />
+          <Route path="/popular-alba" element={<PopularAlbaApp />} />
         </Route>
       </Routes>
     </div>
