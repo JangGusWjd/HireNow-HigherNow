@@ -50,7 +50,9 @@
         font-size: 0.8rem;
         margin-right: 0.5rem;
       }
-
+      :nth-child(1) {
+        width: 40%;
+      }
       :nth-child(2) {
         color: #228b22;
       }
