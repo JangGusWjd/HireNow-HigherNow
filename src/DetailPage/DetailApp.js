@@ -80,7 +80,7 @@ const DetailApp = () => {
     const minutes = Math.floor((remainMillis % (1000 * 60 * 60)) / (1000 * 60));
     // const seconds = Math.floor((remainMillis % (1000 * 60)) / 1000);
 
-    return `${days}일 ${hours}:${minutes}`;
+    return `${days}일 ${hours}시 ${minutes}분전`;
   };
 
   const handleApply = () => {
