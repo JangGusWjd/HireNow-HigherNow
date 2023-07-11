@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../style/ApplyPage/Application.scss";
 // import styled from "styled-components";
 import axios from "axios";
@@ -10,6 +10,7 @@ const Application = ({ questions }) => {
   //   margin-top: 4rem;
   // `;
   const { jobListId } = useParams();
+  const navigate = useNavigate();
   const [applicantData, setApplicantData] = useState({
     jobListId: jobListId,
     name: "",
@@ -30,12 +31,13 @@ const Application = ({ questions }) => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/apply",
+        "http://49.247.33.67:8080/apply",
         applicantData
       );
-      console.log(applicantData);
-      console.log(response.data);
+      // console.log(applicantData);
+      // console.log(response.data);
       alert("지원이 완료되었습니다.");
+      navigate("/");
     } catch (error) {
       console.error("지원자의 데이터 전송을 실패했습니다.", error);
       console.log(applicantData);
