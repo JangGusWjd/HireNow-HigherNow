@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "../style/CheckPage/CheckPassword.scss";
+import "../style/CheckPage/CheckResultList.scss";
+import styled from "styled-components";
 
 const CheckPassword = ({ jobListId, recruitTitle }) => {
+  const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+  `;
   const [password, setPassword] = useState("");
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -20,12 +26,10 @@ const CheckPassword = ({ jobListId, recruitTitle }) => {
           password: password,
         }
       );
-      const result = await response.data;
+      const result = response.data;
       setData(result);
-      console.log(result);
       navigate(`/apply-list/${jobListId}`);
     } catch (error) {
-      console.log({ jobListId });
       console.log("비밀번호 전송에 실패했습니다.", error);
     }
   };
@@ -35,39 +39,50 @@ const CheckPassword = ({ jobListId, recruitTitle }) => {
     fetchData();
   };
 
-  if (data.length > 0) {
-    return (
-      <div className="result-list">
-        <h2>결과 리스트:</h2>
-        <ul>
+  return data.length > 0 ? (
+    <div className="result-list">
+      <h2>지원자 명단</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>이름</th>
+            <th>제출 시간</th>
+          </tr>
+        </thead>
+        <tbody>
           {data.map((item) => (
-            <li key={item.applicationId}>
-              <p>Application ID: {item.applicationId}</p>
-              <p>Name: {item.name}</p>
-              <p>Created Time: {item.createdTime}</p>
-            </li>
+            <tr key={item.applicationId}>
+              {/* <p>Application ID: {item.applicationId}</p> */}
+              <td>
+                <StyledLink
+                  to={`/apply-list/${jobListId}/${item.applicationId}`}
+                >
+                  {/* Name:{" "} */}
+                  {item.name}
+                </StyledLink>
+              </td>
+              <td>{item.createdTime}</td>
+            </tr>
           ))}
-        </ul>
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <div className="check-password-container">
+      <div className="check-password">
+        <h1>{recruitTitle}</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            placeholder="비밀번호를 입력하세요"
+            value={password}
+            onChange={handleChangePassword}
+          />
+          <button type="submit">확인</button>
+        </form>
       </div>
-    );
-  } else {
-    return (
-      <div className="check-password-container">
-        <div className="check-password">
-          <h1>{recruitTitle}</h1>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="password"
-              placeholder="비밀번호를 입력하세요"
-              value={password}
-              onChange={handleChangePassword}
-            />
-            <button type="submit">확인</button>
-          </form>
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default CheckPassword;

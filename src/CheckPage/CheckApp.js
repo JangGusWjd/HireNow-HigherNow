@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../style/CheckPage/CheckApp.scss";
 import styled from "styled-components";
-import CheckPassword from "./CheckPassword";
 
 const CheckApp = () => {
   const AlbaContainer = styled.div`
@@ -12,8 +11,6 @@ const CheckApp = () => {
   `;
 
   const [jobPostings, setJobPostings] = useState([]);
-  // const [selectedJobListId, setSelectedJobListId] = useState(null);
-  // const [selectedRecruitTitle, setSelectedRecruitTitle] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,8 +48,6 @@ const CheckApp = () => {
   };
 
   const jobPostingClick = (jobListId, recruitTitle) => {
-    // setSelectedJobListId(jobListId);
-    // setSelectedRecruitTitle(recruitTitle);
     navigate(`/apply-list/${jobListId}`);
   };
 
@@ -84,12 +79,6 @@ const CheckApp = () => {
             </div>
           </div>
         ))}
-        {/* {selectedJobListId && (
-          <CheckPassword
-            jobListId={selectedJobListId}
-            recruitTitle={selectedRecruitTitle}
-          />
-        )} */}
       </div>
     </AlbaContainer>
   );
