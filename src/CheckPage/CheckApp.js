@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../style/CheckPage/CheckApp.scss";
 import styled from "styled-components";
+import CheckPassword from "./CheckPassword";
 
 const CheckApp = () => {
   const AlbaContainer = styled.div`
@@ -10,6 +11,8 @@ const CheckApp = () => {
   `;
 
   const [jobPostings, setJobPostings] = useState([]);
+  const [selectedJobListId, setSelectedJobListId] = useState(null);
+  const [selectedRecruitTitle, setSelectedRecruitTitle] = useState(null);
 
   useEffect(() => {
     fetchJobPostings();
@@ -45,12 +48,23 @@ const CheckApp = () => {
     }
   };
 
+  const jobPostingClick = (jobListId, recruitTitle) => {
+    setSelectedJobListId(jobListId);
+    setSelectedRecruitTitle(recruitTitle);
+  };
+
   return (
     <AlbaContainer>
       <h1>채용 공고</h1>
       <div className="alba-check-container">
         {jobPostings.map((jobPosting) => (
-          <div key={jobPosting.jobListId} className="alba-list">
+          <div
+            key={jobPosting.jobListId}
+            className="alba-list"
+            onClick={() =>
+              jobPostingClick(jobPosting.jobListId, jobPosting.recruitTitle)
+            }
+          >
             {jobPosting.logoUrl ? (
               <img src={jobPosting.logoUrl} alt="logo" />
             ) : (
@@ -67,6 +81,12 @@ const CheckApp = () => {
             </div>
           </div>
         ))}
+        {selectedJobListId && (
+          <CheckPassword
+            jobListId={selectedJobListId}
+            recruitTitle={selectedRecruitTitle}
+          />
+        )}
       </div>
     </AlbaContainer>
   );
