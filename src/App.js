@@ -8,6 +8,7 @@ import CheckApplyZip from "./CheckPage/CheckApplyZip";
 import CheckApplySingle from "./CheckPage/CheckApplySingle";
 import JobPostApp from "./JobPostPage/JobPostApp";
 import PopularAlbaApp from "./PopularAlbaPage/PopularAlbaApp";
+import SearchPage from "./SearchPage/SearchPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           />
           <Route path="/job-post" element={<JobPostApp />} />
           <Route path="/popular-alba" element={<PopularAlbaApp />} />
+          <Route path="/recruit/search/:keyword" element={<SearchPage />} />
         </Route>
       </Routes>
     </div>

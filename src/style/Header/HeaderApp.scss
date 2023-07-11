@@ -24,22 +24,36 @@ header {
         color: #228b22;
       }
 
-      input {
+      form {
         width: 27rem;
         height: 3rem;
         border-radius: 25px;
         border: 1.5px solid #228b22;
         background: none;
         color: #1c1b1a;
-        padding-left: 1rem;
-      }
+        padding: 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        input {
+          outline: none;
+          border: none;
+          background: none;
+        }
 
-      input:focus {
-        outline: none;
-      }
+        input:focus {
+          outline: none;
+        }
 
-      input::placeholder {
-        color: #228b22;
+        input::placeholder {
+          color: #228b22;
+        }
+
+        button {
+          border: none;
+          outline: none;
+          background: none;
+        }
       }
     }
 
