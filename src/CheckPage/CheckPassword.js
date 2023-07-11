@@ -4,8 +4,22 @@ import axios from "axios";
 import "../style/CheckPage/CheckPassword.scss";
 import "../style/CheckPage/CheckResultList.scss";
 import styled from "styled-components";
+import DetailPosting from "../DetailPage/DetailPosting";
 
-const CheckPassword = ({ jobListId, recruitTitle }) => {
+const CheckPassword = ({
+  jobListId,
+  companyName,
+  recruitTitle,
+  companyInfo,
+  employmentType,
+  wage,
+  companyAddress,
+}) => {
+  const Container = styled.div`
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+  `;
   const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
@@ -40,33 +54,43 @@ const CheckPassword = ({ jobListId, recruitTitle }) => {
   };
 
   return data.length > 0 ? (
-    <div className="result-list">
-      <h2>지원자 명단</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>이름</th>
-            <th>제출 시간</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item) => (
-            <tr key={item.applicationId}>
-              {/* <p>Application ID: {item.applicationId}</p> */}
-              <td>
-                <StyledLink
-                  to={`/apply-list/${jobListId}/${item.applicationId}`}
-                >
-                  {/* Name:{" "} */}
-                  {item.name}
-                </StyledLink>
-              </td>
-              <td>{item.createdTime}</td>
+    <Container>
+      <DetailPosting
+        companyName={companyName}
+        recruitTitle={recruitTitle}
+        companyInfo={companyInfo}
+        employmentType={employmentType}
+        wage={wage}
+        companyAddress={companyAddress}
+      />
+      <div className="result-list">
+        <h2>지원자 명단</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>제출 시간</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <tr key={item.applicationId}>
+                {/* <p>Application ID: {item.applicationId}</p> */}
+                <td>
+                  <StyledLink
+                    to={`/apply-list/${jobListId}/${item.applicationId}`}
+                  >
+                    {/* Name:{" "} */}
+                    {item.name}
+                  </StyledLink>
+                </td>
+                <td>{item.createdTime}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Container>
   ) : (
     <div className="check-password-container">
       <div className="check-password">

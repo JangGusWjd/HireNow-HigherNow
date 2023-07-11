@@ -6,7 +6,8 @@ import CheckApplySingle from "./CheckApplySingle";
 const CheckApplyZip = () => {
   const { jobListId } = useParams();
 
-  const [selectedRecruitTitle, setSelectedRecruitTitle] = useState(null);
+  // const [selectedRecruitTitle, setSelectedRecruitTitle] = useState(null);
+  const [selectedJob, setSelectedJob] = useState([]);
 
   useEffect(() => {
     fetchJobTitle();
@@ -19,7 +20,7 @@ const CheckApplyZip = () => {
       const response = await axios.get(
         `http://49.247.33.67:8080/recruit/${jobListId}`
       );
-      setSelectedRecruitTitle(response.data.recruitTitle);
+      setSelectedJob(response.data);
     } catch (error) {
       console.error("채용 제목 불러오기 실패", error);
     }
@@ -30,7 +31,12 @@ const CheckApplyZip = () => {
       {jobListId && (
         <CheckPassword
           jobListId={jobListId}
-          recruitTitle={selectedRecruitTitle}
+          companyName={selectedJob.companyName}
+          recruitTitle={selectedJob.recruitTitle}
+          companyInfo={selectedJob.companyInfo}
+          employmentType={selectedJob.employmentType}
+          wage={selectedJob.wage}
+          companyAddress={selectedJob.companyAddress}
         />
       )}
     </div>
