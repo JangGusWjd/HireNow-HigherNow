@@ -1,0 +1,51 @@
+.popular-list-container {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+
+  .popular-list-single {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 12rem;
+    margin-bottom: 1rem;
+    background: #fafafa;
+    box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    img {
+      width: 30%;
+      height: 12rem;
+      border-radius: 5px 0 0 5px;
+    }
+
+    div {
+      p {
+        margin: 0;
+        margin-left: 1rem;
+        display: flex;
+        color: #4a4a4a;
+        font-weight: 600;
+      }
+
+      :nth-child(1) {
+        color: #228b22;
+        font-weight: 700;
+        span {
+          color: #808080;
+          font-size: 0.7rem;
+          margin-left: 0.2rem;
+          display: flex;
+          align-items: flex-end;
+        }
+      }
+
+      :nth-child(2) {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 0.3rem;
+      }
+    }
+  }
+}
